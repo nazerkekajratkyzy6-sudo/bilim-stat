@@ -1,0 +1,146 @@
+@import 'tailwindcss';
+@import '@fontsource/golos-text/400.css';
+@import '@fontsource/golos-text/500.css';
+@import '@fontsource/golos-text/600.css';
+@import '@fontsource/golos-text/700.css';
+@import '@fontsource/commissioner/600.css';
+@import '@fontsource/commissioner/700.css';
+@import '@fontsource/commissioner/800.css';
+@import 'katex/dist/katex.min.css';
+
+/*
+  Палитра: «миллиметрлік қағаз» зертханасы.
+  paper — жұмыс беті, ink — мәтін, blue — БЖБ, teal — ТЖБ / нақты нүктелер,
+  violet — модель және болжам, sky — белсенді элементтер.
+*/
+@theme {
+  --color-paper: #fafcff;
+  --color-sheet: #ffffff;
+  --color-grid: #e2edf9;
+  --color-grid-strong: #c9dcf2;
+  --color-ink: #13305a;
+  --color-ink-soft: #4a6285;
+  --color-ink-faint: #7f93b0;
+  --color-sky: #36a3f2;
+  --color-sky-wash: #e8f4fe;
+  --color-blue: #1f5fd1;
+  --color-blue-wash: #eaf0fc;
+  --color-teal: #0f9f91;
+  --color-teal-wash: #e3f7f4;
+  --color-violet: #6d4fd8;
+  --color-violet-wash: #f0ecfd;
+  --color-amber: #c47a06;
+  --color-amber-wash: #fff5e0;
+  --color-rose: #cf2f56;
+  --color-rose-wash: #fdecf0;
+
+  --font-display: 'Commissioner', 'Golos Text', system-ui, sans-serif;
+  --font-sans: 'Golos Text', system-ui, sans-serif;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Миллиметрлік қағаз торы */
+.graph-paper {
+  background-color: var(--color-sheet);
+  background-image:
+    linear-gradient(var(--color-grid-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-strong) 1px, transparent 1px),
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  background-position: -1px -1px;
+}
+
+.panel {
+  background: var(--color-sheet);
+  border: 1px solid var(--color-grid-strong);
+  border-radius: 14px;
+}
+
+.field {
+  border: 1px solid var(--color-grid-strong);
+  border-radius: 8px;
+  background: white;
+  padding: 0.35rem 0.55rem;
+  font-variant-numeric: tabular-nums;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field:focus {
+  border-color: var(--color-sky);
+  box-shadow: 0 0 0 3px var(--color-sky-wash);
+}
+.field[aria-invalid='true'] {
+  border-color: var(--color-rose);
+  background: var(--color-rose-wash);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-sky);
+  outline-offset: 2px;
+}
+
+input[type='range'] {
+  accent-color: var(--color-violet);
+}
+
+.katex {
+  font-size: 1.08em;
+}
+
+.recharts-cartesian-axis-tick-value,
+.recharts-legend-item-text {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Басып шығару: ақ фон, навигациясыз */
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm 14mm;
+  }
+  html,
+  body {
+    background: white !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-full {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .panel {
+    border-color: #cfd8e3;
+    break-inside: avoid;
+  }
+  .report-section {
+    break-inside: avoid;
+  }
+}
